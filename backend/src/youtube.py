@@ -9,7 +9,7 @@ class YouTubeService():
     def __init__(self):
         self.api_key = settings.yt_api_key
 
-    def search_turtorial(self, song_name: str) -> dict | None: 
+    def search_tutorial(self, song_name: str) -> dict | None: 
         search_query = f'{song_name} guitar tutorial'
         params = {
             "part": "snippet",
@@ -46,5 +46,5 @@ class YouTubeService():
 # Test function
 if __name__ == "__main__":
     yt_service = YouTubeService()
-    result = yt_service.search_tutorial("Wonderwall", "Oasis")
+    result = yt_service.search_tutorial("Wonderwall")
     print(result)

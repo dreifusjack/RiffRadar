@@ -39,8 +39,7 @@ class RecommendationService:
         for song in similar_songs:
             # Get YouTube tutorial for each song
             youtube_data = self.youtube.search_tutorial(
-                song['song_name'], 
-                song['artist']
+                song['song_name']
             )
             
             # Build recommendation object
