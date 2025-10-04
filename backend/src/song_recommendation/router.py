@@ -7,7 +7,7 @@ def song_router() -> APIRouter:
   router = APIRouter(prefix="/songs", tags=["Song Recommendation"])
   recommendation_service = RecommendationService()
 
-  @router.get("/recommendations", response_model=RecommendationResponse)
+  @router.post("/recommendations", response_model=RecommendationResponse)
   async def get_recommendations(request: ChordSequence):
       """
       Get song recommendations based on chord progression

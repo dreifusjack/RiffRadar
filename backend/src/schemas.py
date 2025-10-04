@@ -1,8 +1,9 @@
+from typing import List
 from pydantic import BaseModel
 
 
 class ChordSequence(BaseModel):
-    chords: list[str]
+    chords: List[str]
 
 
 class YouTubeTutorial(BaseModel):
@@ -15,12 +16,12 @@ class SongRecommendation(BaseModel):
     song_id: str
     song_name: str
     artist: str
-    chords: list[str]
+    chords: List[str]
     difficulty: str
     similarity_score: float
     youtube_tutorial: YouTubeTutorial | None = None
     
     
 class RecommendationResponse(BaseModel):
-    chords: list[str] # input chords 
-    recommendations: list[SongRecommendation]
+    chords: List[str] # input chords 
+    recommendations: List[SongRecommendation]

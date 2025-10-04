@@ -2,7 +2,7 @@ from typing import cast
 from fastapi import FastAPI
 from fastapi.responses import HTMLResponse
 from scalar_fastapi import get_scalar_api_reference
-from src.song_recommendation import song_router
+from src.song_recommendation.router import song_router
 
 app = FastAPI(
     title="Guitar Song Recommendor API", 

@@ -1,5 +1,6 @@
 from typing import List
-from schemas import SongRecommendation, YouTubeTutorial
+
+from src.schemas import SongRecommendation, YouTubeTutorial
 from src.chroma import ChromaDBClient
 from src.youtube import YouTubeService
 
