@@ -1,0 +1,352 @@
+[
+  {
+    "song_id": "1",
+    "song_name": "Wonderwall",
+    "artist": "Oasis",
+    "chords": ["Em", "G", "D", "A7"],
+    "difficulty": "beginner"
+  },
+  {
+    "song_id": "2",
+    "song_name": "Let It Be",
+    "artist": "The Beatles",
+    "chords": ["C", "G", "Am", "F"],
+    "difficulty": "beginner"
+  },
+  {
+    "song_id": "3",
+    "song_name": "Hotel California",
+    "artist": "Eagles",
+    "chords": ["Bm", "F#", "A", "E", "G", "D", "Em", "F#"],
+    "difficulty": "intermediate"
+  },
+  {
+    "song_id": "4",
+    "song_name": "Hallelujah",
+    "artist": "Leonard Cohen",
+    "chords": ["C", "Am", "C", "Am", "F", "G", "C", "G"],
+    "difficulty": "beginner"
+  },
+  {
+    "song_id": "5",
+    "song_name": "Horse With No Name",
+    "artist": "America",
+    "chords": ["Em", "D6"],
+    "difficulty": "beginner"
+  },
+  {
+    "song_id": "6",
+    "song_name": "Knockin' on Heaven's Door",
+    "artist": "Bob Dylan",
+    "chords": ["G", "D", "Am", "G", "D", "C"],
+    "difficulty": "beginner"
+  },
+  {
+    "song_id": "7",
+    "song_name": "Sweet Home Alabama",
+    "artist": "Lynyrd Skynyrd",
+    "chords": ["D", "C", "G"],
+    "difficulty": "beginner"
+  },
+  {
+    "song_id": "8",
+    "song_name": "Brown Eyed Girl",
+    "artist": "Van Morrison",
+    "chords": ["G", "C", "G", "D"],
+    "difficulty": "beginner"
+  },
+  {
+    "song_id": "9",
+    "song_name": "Hey There Delilah",
+    "artist": "Plain White T's",
+    "chords": ["D", "F#m", "Bm", "G", "A"],
+    "difficulty": "beginner"
+  },
+  {
+    "song_id": "10",
+    "song_name": "I'm Yours",
+    "artist": "Jason Mraz",
+    "chords": ["G", "D", "Em", "C"],
+    "difficulty": "beginner"
+  },
+  {
+    "song_id": "11",
+    "song_name": "Riptide",
+    "artist": "Vance Joy",
+    "chords": ["Am", "G", "C"],
+    "difficulty": "beginner"
+  },
+  {
+    "song_id": "12",
+    "song_name": "Good Riddance (Time of Your Life)",
+    "artist": "Green Day",
+    "chords": ["G", "C", "D", "Em"],
+    "difficulty": "beginner"
+  },
+  {
+    "song_id": "13",
+    "song_name": "Bad Moon Rising",
+    "artist": "Creedence Clearwater Revival",
+    "chords": ["D", "A", "G", "D"],
+    "difficulty": "beginner"
+  },
+  {
+    "song_id": "14",
+    "song_name": "Free Fallin'",
+    "artist": "Tom Petty",
+    "chords": ["D", "A", "Bm", "G"],
+    "difficulty": "beginner"
+  },
+  {
+    "song_id": "15",
+    "song_name": "Stand By Me",
+    "artist": "Ben E. King",
+    "chords": ["A", "F#m", "D", "E"],
+    "difficulty": "beginner"
+  },
+  {
+    "song_id": "16",
+    "song_name": "Zombie",
+    "artist": "The Cranberries",
+    "chords": ["Em", "C", "G", "D"],
+    "difficulty": "beginner"
+  },
+  {
+    "song_id": "17",
+    "song_name": "Love Yourself",
+    "artist": "Justin Bieber",
+    "chords": ["G", "D", "Em", "C"],
+    "difficulty": "beginner"
+  },
+  {
+    "song_id": "18",
+    "song_name": "Someone Like You",
+    "artist": "Adele",
+    "chords": ["A", "C#m", "F#m", "D"],
+    "difficulty": "beginner"
+  },
+  {
+    "song_id": "19",
+    "song_name": "Perfect",
+    "artist": "Ed Sheeran",
+    "chords": ["G", "Em", "C", "D"],
+    "difficulty": "beginner"
+  },
+  {
+    "song_id": "20",
+    "song_name": "Thinking Out Loud",
+    "artist": "Ed Sheeran",
+    "chords": ["D", "A", "Em", "G"],
+    "difficulty": "beginner"
+  },
+  {
+    "song_id": "21",
+    "song_name": "Seven Nation Army",
+    "artist": "The White Stripes",
+    "chords": ["E", "G", "D", "C", "B"],
+    "difficulty": "beginner"
+  },
+  {
+    "song_id": "22",
+    "song_name": "Smoke on the Water",
+    "artist": "Deep Purple",
+    "chords": ["Em", "D", "F", "G"],
+    "difficulty": "beginner"
+  },
+  {
+    "song_id": "23",
+    "song_name": "Wish You Were Here",
+    "artist": "Pink Floyd",
+    "chords": ["Em", "G", "A", "Em", "A", "G"],
+    "difficulty": "intermediate"
+  },
+  {
+    "song_id": "24",
+    "song_name": "Blackbird",
+    "artist": "The Beatles",
+    "chords": ["G", "Am", "G", "G", "A7", "D7"],
+    "difficulty": "intermediate"
+  },
+  {
+    "song_id": "25",
+    "song_name": "Stairway to Heaven",
+    "artist": "Led Zeppelin",
+    "chords": ["Am", "C", "D", "F", "G"],
+    "difficulty": "advanced"
+  },
+  {
+    "song_id": "26",
+    "song_name": "House of the Rising Sun",
+    "artist": "The Animals",
+    "chords": ["Am", "C", "D", "F", "Am", "E"],
+    "difficulty": "beginner"
+  },
+  {
+    "song_id": "27",
+    "song_name": "Hey Jude",
+    "artist": "The Beatles",
+    "chords": ["F", "C", "F", "Bb", "F", "C"],
+    "difficulty": "beginner"
+  },
+  {
+    "song_id": "28",
+    "song_name": "Imagine",
+    "artist": "John Lennon",
+    "chords": ["C", "F", "C", "F"],
+    "difficulty": "beginner"
+  },
+  {
+    "song_id": "29",
+    "song_name": "No Woman No Cry",
+    "artist": "Bob Marley",
+    "chords": ["C", "G", "Am", "F"],
+    "difficulty": "beginner"
+  },
+  {
+    "song_id": "30",
+    "song_name": "Fast Car",
+    "artist": "Tracy Chapman",
+    "chords": ["C", "G", "Em", "D"],
+    "difficulty": "beginner"
+  },
+  {
+    "song_id": "31",
+    "song_name": "Wild Horses",
+    "artist": "The Rolling Stones",
+    "chords": ["Bm", "G", "Bm", "A"],
+    "difficulty": "intermediate"
+  },
+  {
+    "song_id": "32",
+    "song_name": "Yesterday",
+    "artist": "The Beatles",
+    "chords": ["F", "Em", "A7", "Dm", "Bb", "C", "F"],
+    "difficulty": "beginner"
+  },
+  {
+    "song_id": "33",
+    "song_name": "Yellow",
+    "artist": "Coldplay",
+    "chords": ["G", "D", "Cmaj7", "G"],
+    "difficulty": "beginner"
+  },
+  {
+    "song_id": "34",
+    "song_name": "The Scientist",
+    "artist": "Coldplay",
+    "chords": ["Dm", "Bb", "F", "C"],
+    "difficulty": "beginner"
+  },
+  {
+    "song_id": "35",
+    "song_name": "Iris",
+    "artist": "Goo Goo Dolls",
+    "chords": ["Bm", "A", "G", "Bm", "A", "D"],
+    "difficulty": "intermediate"
+  },
+  {
+    "song_id": "36",
+    "song_name": "The Man Who Sold the World",
+    "artist": "David Bowie",
+    "chords": ["A", "D", "E", "F"],
+    "difficulty": "intermediate"
+  },
+  {
+    "song_id": "37",
+    "song_name": "Tears in Heaven",
+    "artist": "Eric Clapton",
+    "chords": ["A", "E", "F#m", "D", "E", "A"],
+    "difficulty": "intermediate"
+  },
+  {
+    "song_id": "38",
+    "song_name": "Nothing Else Matters",
+    "artist": "Metallica",
+    "chords": ["Em", "D", "C", "G", "B7"],
+    "difficulty": "intermediate"
+  },
+  {
+    "song_id": "39",
+    "song_name": "Losing My Religion",
+    "artist": "R.E.M.",
+    "chords": ["Am", "Em", "Dm", "G"],
+    "difficulty": "intermediate"
+  },
+  {
+    "song_id": "40",
+    "song_name": "Under the Bridge",
+    "artist": "Red Hot Chili Peppers",
+    "chords": ["E", "B", "C#m", "G#m", "A"],
+    "difficulty": "intermediate"
+  },
+  {
+    "song_id": "41",
+    "song_name": "Use Somebody",
+    "artist": "Kings of Leon",
+    "chords": ["C", "C", "F", "C"],
+    "difficulty": "beginner"
+  },
+  {
+    "song_id": "42",
+    "song_name": "Hurt",
+    "artist": "Johnny Cash",
+    "chords": ["Am", "C", "D", "Am"],
+    "difficulty": "beginner"
+  },
+  {
+    "song_id": "43",
+    "song_name": "Mad World",
+    "artist": "Gary Jules",
+    "chords": ["Em", "A", "Em", "A"],
+    "difficulty": "beginner"
+  },
+  {
+    "song_id": "44",
+    "song_name": "Creep",
+    "artist": "Radiohead",
+    "chords": ["G", "B", "C", "Cm"],
+    "difficulty": "beginner"
+  },
+  {
+    "song_id": "45",
+    "song_name": "Champagne Supernova",
+    "artist": "Oasis",
+    "chords": ["A", "G", "F#m", "E"],
+    "difficulty": "beginner"
+  },
+  {
+    "song_id": "46",
+    "song_name": "Boulevard of Broken Dreams",
+    "artist": "Green Day",
+    "chords": ["Fm", "Ab", "Eb", "Bb"],
+    "difficulty": "beginner"
+  },
+  {
+    "song_id": "47",
+    "song_name": "Hey Soul Sister",
+    "artist": "Train",
+    "chords": ["E", "B", "C#m", "A"],
+    "difficulty": "beginner"
+  },
+  {
+    "song_id": "48",
+    "song_name": "Pumped Up Kicks",
+    "artist": "Foster the People",
+    "chords": ["Em", "G", "D", "A"],
+    "difficulty": "beginner"
+  },
+  {
+    "song_id": "49",
+    "song_name": "Ho Hey",
+    "artist": "The Lumineers",
+    "chords": ["F", "C", "F", "C"],
+    "difficulty": "beginner"
+  },
+  {
+    "song_id": "50",
+    "song_name": "Budapest",
+    "artist": "George Ezra",
+    "chords": ["F#", "B", "C#", "F#"],
+    "difficulty": "beginner"
+  }
+]
