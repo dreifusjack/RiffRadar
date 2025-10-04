@@ -1,41 +1,50 @@
+from fastapi import logger
 import requests
 from src.config import settings
 
-def youtube_api(song_name: str): 
-    search_query = song_name + " guitar tutorial"
-    max_results = 1  
+class YouTubeService():
+    """Service for calling Youtube API"""
+    BASE_URL = "https://www.googleapis.com/youtube/v3/search"
 
-    endpoint = (
-        "https://www.googleapis.com/youtube/v3/search"
-        f"?part=snippet&maxResults={max_results}&q={search_query}&key={settings.yt_api_key}"
-    )
+    def __init__(self):
+        self.api_key = settings.yt_api_key
 
-    response = requests.get(endpoint)
-
-    if response.status_code == 200:
-        data = response.json()
-        
-        if data['items']:
-            video_id = data['items'][0]['id']['videoId']
-            video_url = f"https://www.youtube.com/watch?v={video_id}"
-            title = data['items'][0]['snippet']['title']
+    def search_turtorial(self, song_name: str) -> dict | None: 
+        search_query = f'{song_name} guitar tutorial'
+        params = {
+            "part": "snippet",
+            "maxResults": 1,
+            "q": search_query,
+            "key": self.api_key,
+            "type": "video"
+        }
+        try:
+            response = requests.get(self.BASE_URL, params=params, timeout=10)
+            response.raise_for_status()
             
-            print(f"Title: {title}")
-            print(f"Video URL: {video_url}")
+            data = response.json()
             
-            return {
-                "video_id": video_id,
-                "video_url": video_url,
-                "title": title,
-                "thumbnail": data['items'][0]['snippet']['thumbnails']['high']['url']
-            }
-        else:
-            print("No results found")
+            if data.get('items'):
+                video = data['items'][0]
+                video_id = video['id']['videoId']
+                
+                return {
+                    "video_id": video_id,
+                    "video_url": f"https://www.youtube.com/watch?v={video_id}",
+                    "title": video['snippet']['title'],
+                    "thumbnail_url": video['snippet']['thumbnails']['high']['url']
+                }
+            else:
+                logger.warning(f"No YouTube results found for: {search_query}")
+                return None
+                
+        except requests.exceptions.RequestException as e:
+            logger.error(f"YouTube API error: {e}")
             return None
-    else:
-        print(f"Error: {response.status_code}, {response.text}")
-        return None
 
+
+# Test function
 if __name__ == "__main__":
-    result = youtube_api("Wonderwall")
+    yt_service = YouTubeService()
+    result = yt_service.search_tutorial("Wonderwall", "Oasis")
     print(result)
