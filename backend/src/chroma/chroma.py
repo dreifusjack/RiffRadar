@@ -1,10 +1,6 @@
 import chromadb
 from chromadb.config import Settings
 from typing import List, Dict
-import logging
-
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
 
 
 class ChromaDBClient:
@@ -22,8 +18,6 @@ class ChromaDBClient:
             name="songs",
             metadata={"description": "Song chord progressions"}
         )
-        
-        logger.info(f"ChromaDB initialized. Collection count: {self.collection.count()}")
     
     def encode_chord_progression(self, chords: List[str]) -> List[float]:
         """
@@ -93,8 +87,6 @@ class ChromaDBClient:
                 "difficulty": difficulty
             }]
         )
-        
-        logger.info(f"Added song: {song_name} by {artist}")
     
     def query_similar_songs(self, chords: List[str], n_results: int = 5) -> List[Dict]:
         """Query for similar songs based on chord progression"""
@@ -131,64 +123,3 @@ class ChromaDBClient:
             name="songs",
             metadata={"description": "Song chord progressions"}
         )
-        logger.info("Collection reset")
-
-
-# Test the connection
-if __name__ == "__main__":
-    # Initialize client
-    db = ChromaDBClient()
-    
-    # Reset for clean test
-    db.reset_collection()
-    
-    # Add some test songs
-    print("\n--- Adding Test Songs ---")
-    
-    db.add_song(
-        song_id="1",
-        song_name="Wonderwall",
-        artist="Oasis",
-        chords=["Em", "G", "D", "A7"],
-        difficulty="beginner"
-    )
-    
-    db.add_song(
-        song_id="2",
-        song_name="Let It Be",
-        artist="The Beatles",
-        chords=["C", "G", "Am", "F"],
-        difficulty="beginner"
-    )
-    
-    db.add_song(
-        song_id="3",
-        song_name="Hotel California",
-        artist="Eagles",
-        chords=["Bm", "F#", "A", "E", "G", "D", "Em", "F#"],
-        difficulty="intermediate"
-    )
-    
-    db.add_song(
-        song_id="4",
-        song_name="Hallelujah",
-        artist="Leonard Cohen",
-        chords=["C", "Am", "C", "Am", "F", "G", "C", "G"],
-        difficulty="beginner"
-    )
-    
-    print(f"\nTotal songs in database: {db.get_collection_count()}")
-    
-    # Test query
-    print("\n--- Testing Query ---")
-    test_chords = ["C", "G", "Am", "F"]
-    print(f"Searching for songs similar to: {test_chords}")
-    
-    results = db.query_similar_songs(test_chords, n_results=3)
-    
-    print("\n--- Results ---")
-    for i, song in enumerate(results, 1):
-        print(f"\n{i}. {song['song_name']} by {song['artist']}")
-        print(f"   Chords: {song['chords']}")
-        print(f"   Difficulty: {song['difficulty']}")
-        print(f"   Similarity: {song['similarity_score']:.3f}")

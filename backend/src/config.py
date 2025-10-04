@@ -1,7 +1,6 @@
 from functools import lru_cache
 
 from fastapi import FastAPI
-from pydantic import computed_field
 from pydantic_settings import BaseSettings, SettingsConfigDict
 from starlette.middleware.cors import CORSMiddleware
 
@@ -10,8 +9,6 @@ class Settings(BaseSettings):
     # CORS config
     frontend_url: str
     api_url: str | None = None
-
-    # Database config
 
     # external apis
     yt_api_key: str

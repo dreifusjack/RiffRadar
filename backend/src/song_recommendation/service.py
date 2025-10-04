@@ -1,12 +1,10 @@
 from typing import List
 
+from fastapi import logger
+
 from src.schemas import SongRecommendation, YouTubeTutorial
-from src.chroma import ChromaDBClient
+from src.chroma.chroma import ChromaDBClient
 from src.youtube import YouTubeService
-
-import logging
-
-logger = logging.getLogger(__name__)
 
 
 class RecommendationService:
