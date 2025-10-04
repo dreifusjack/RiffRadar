@@ -1,18 +1,21 @@
 from typing import List
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
+from pydantic.alias_generators import to_camel
 
+class BaseAPIModel(BaseModel):
+    model_config = ConfigDict(alias_generator=to_camel, populate_by_name=True)
 
-class ChordSequence(BaseModel):
+class ChordSequence(BaseAPIModel):
     chords: List[str]
 
 
-class YouTubeTutorial(BaseModel):
+class YouTubeTutorial(BaseAPIModel):
     video_id: str
     video_url: str
     title: str
     thumbnail_url: str
 
-class SongRecommendation(BaseModel):
+class SongRecommendation(BaseAPIModel):
     song_id: str
     song_name: str
     artist: str
@@ -22,6 +25,6 @@ class SongRecommendation(BaseModel):
     youtube_tutorial: YouTubeTutorial | None = None
     
     
-class RecommendationResponse(BaseModel):
+class RecommendationResponse(BaseAPIModel):
     chords: List[str] # input chords 
     recommendations: List[SongRecommendation]
