@@ -5,11 +5,22 @@ class ChordSequence(BaseModel):
     chords: list[str]
 
 
-class Song(BaseModel):
-    name: str 
-    # TODO: fill in the rest
+class YouTubeTutorial(BaseModel):
+    video_id: str
+    video_url: str
+    title: str
+    thumbnail_url: str
+
+class SongRecommendation(BaseModel):
+    song_id: str
+    song_name: str
+    artist: str
+    chords: list[str]
+    difficulty: str
+    similarity_score: float
+    youtube_tutorial: YouTubeTutorial | None = None
     
     
 class RecommendationResponse(BaseModel):
     chords: list[str] # input chords 
-    songs: list[Song]
+    recommendations: list[SongRecommendation]

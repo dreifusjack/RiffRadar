@@ -9,7 +9,7 @@ logger = logging.getLogger(__name__)
 
 class ChromaDBClient:
     def __init__(self, persist_directory: str = "./chroma_db"):
-        """Initialize ChromaDB client"""
+        """Initialize client"""
         self.client = chromadb.PersistentClient(
             path=persist_directory,
             settings=Settings(
@@ -18,7 +18,6 @@ class ChromaDBClient:
             )
         )
         
-        # Get or create collection for songs
         self.collection = self.client.get_or_create_collection(
             name="songs",
             metadata={"description": "Song chord progressions"}
@@ -32,23 +31,18 @@ class ChromaDBClient:
         
         Circle of fifths order: C, G, D, A, E, B, F#/Gb, C#/Db, G#/Ab, D#/Eb, A#/Bb, F
         """
-        # Circle of fifths mapping (0-11, like clock positions)
         circle_of_fifths = {
             'C': 0, 'G': 1, 'D': 2, 'A': 3, 'E': 4, 'B': 5,
             'F#': 6, 'Gb': 6, 'C#': 7, 'Db': 7, 'G#': 8, 'Ab': 8,
             'D#': 9, 'Eb': 9, 'A#': 10, 'Bb': 10, 'F': 11
         }
         
-        # For minor chords, we'll add 12 to differentiate (so 12-23)
-        # For 7th chords, add 24, etc.
-        
-        max_length = 8  # Support up to 8 chords in a progression
-        embedding_dim = max_length * 2  # Each chord gets 2 values: position on circle + chord type
+        max_length = 8
+        embedding_dim = max_length * 2
         
         embedding = [0.0] * embedding_dim
         
         for i, chord in enumerate(chords[:max_length]):
-            # Parse chord (handle major, minor, 7th, etc.)
             root, chord_type = self._parse_chord(chord)
             
             if root in circle_of_fifths:
