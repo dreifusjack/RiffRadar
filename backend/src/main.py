@@ -2,7 +2,7 @@ from typing import cast
 from fastapi import FastAPI
 from fastapi.responses import HTMLResponse
 from scalar_fastapi import get_scalar_api_reference
-from src.song_recommendation.router import song_router
+from src.api import api_router
 from src.config import settings, setup_cors_middleware
 
 app = FastAPI(
@@ -15,7 +15,7 @@ app = FastAPI(
     )
 
 setup_cors_middleware(app, settings)
-app.include_router(song_router())
+app.include_router(api_router())
 
 @app.get("/", include_in_schema=False)
 async def scalar():

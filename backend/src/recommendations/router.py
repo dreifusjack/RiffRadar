@@ -1,19 +1,20 @@
 from fastapi import APIRouter, HTTPException, logger
 
+from src.recommendations.service import RecommendationService
 from src.schemas import RecommendationResponse, ChordSequence
-from src.song_recommendation.service import RecommendationService
 
-def song_router() -> APIRouter:
-  router = APIRouter(prefix="", tags=["Song Recommendation"])
+
+def song_recommendations_router() -> APIRouter:
+  router = APIRouter(prefix="/recommendations", tags=["Song Recommendation"])
   recommendation_service = RecommendationService()
 
-  @router.post("/recommendations", response_model=RecommendationResponse)
+  @router.post("", response_model=RecommendationResponse)
   async def generate_recommendations(request: ChordSequence):
       """
       Get song recommendations based on chord progression
       """
       try:
-          recommendations = recommendation_service.get_recommendations(
+          recommendations = recommendation_service.generate_recommendations(
               chords=request.chords,
           )
           

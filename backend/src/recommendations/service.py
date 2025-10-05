@@ -12,7 +12,7 @@ class RecommendationService:
         self.db = ChromaDBClient()
         self.youtube = YouTubeService()
     
-    def get_recommendations(
+    def generate_recommendations(
         self, 
         chords: List[str], 
         max_results: int = 5
@@ -60,7 +60,7 @@ class RecommendationService:
         }
 
 
-# Test function
+# Test
 if __name__ == "__main__":
     service = RecommendationService()
     
