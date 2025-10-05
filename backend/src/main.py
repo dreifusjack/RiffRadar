@@ -3,6 +3,7 @@ from fastapi import FastAPI
 from fastapi.responses import HTMLResponse
 from scalar_fastapi import get_scalar_api_reference
 from src.song_recommendation.router import song_router
+from src.config import settings, setup_cors_middleware
 
 app = FastAPI(
     title="Guitar Song Recommendor API", 
@@ -13,6 +14,7 @@ app = FastAPI(
     redirect_slashes=False
     )
 
+setup_cors_middleware(app, settings)
 app.include_router(song_router())
 
 @app.get("/", include_in_schema=False)
