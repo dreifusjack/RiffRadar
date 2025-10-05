@@ -1,7 +1,5 @@
 from typing import List
 
-from fastapi import logger
-
 from src.schemas import SongRecommendation, YouTubeTutorial
 from src.chroma.chroma import ChromaDBClient
 from src.youtube import YouTubeService
@@ -53,7 +51,6 @@ class RecommendationService:
             
             recommendations.append(recommendation)
         
-        logger.info(f"Generated {len(recommendations)} recommendations for chords: {chords}")
         return recommendations
     
     def get_database_stats(self) -> dict:
