@@ -4,16 +4,13 @@ from src.schemas import RecommendationResponse, ChordSequence
 from src.song_recommendation.service import RecommendationService
 
 def song_router() -> APIRouter:
-  router = APIRouter(prefix="/songs", tags=["Song Recommendation"])
+  router = APIRouter(prefix="", tags=["Song Recommendation"])
   recommendation_service = RecommendationService()
 
   @router.post("/recommendations", response_model=RecommendationResponse)
-  async def get_recommendations(request: ChordSequence):
+  async def generate_recommendations(request: ChordSequence):
       """
       Get song recommendations based on chord progression
-      
-      - **chords**: List of chords in the progression (e.g., ["C", "G", "Am", "F"])
-      - **max_results**: Maximum number of recommendations (1-10)
       """
       try:
           recommendations = recommendation_service.get_recommendations(
