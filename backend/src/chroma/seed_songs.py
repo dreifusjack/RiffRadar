@@ -7,6 +7,8 @@ import json
 import sys
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).parent.parent.parent))
+
 from src.chroma.chroma_client import ChromaDBClient
 
 sys.path.insert(0, str(Path(__file__).parent))
@@ -37,8 +39,12 @@ def seed_database(reset: bool = False):
     
     # Initialize ChromaDB client
     db = ChromaDBClient()
+
+    current_count = db.get_collection_count()
+    if current_count > 0 and not reset:
+        logger.info(f"Database already has {current_count} songs, skipping seed")
+        return
     
-    # Optionally reset the collection
     if reset:
         logger.warning("Resetting database...")
         db.reset_collection()

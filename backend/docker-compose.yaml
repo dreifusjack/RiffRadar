@@ -31,7 +31,8 @@ services:
         condition: service_healthy
     networks:
       - riffradar-network
-    command: python run.py
+    command: >
+      sh -c "python src/chroma/seed_songs.py && python run.py"
 
 volumes:
   chroma_data:
