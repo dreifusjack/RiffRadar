@@ -1,0 +1,36 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv/
+.venv
+venv/
+env/
+ENV/
+
+# ChromaDB data (will be created fresh or mounted)
+chroma_db/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Git
+.git/
+.gitignore
+
+# Docs
+README.md
+*.md
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Poetry
+poetry.lock
