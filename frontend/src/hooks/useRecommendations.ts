@@ -1,16 +1,17 @@
-import { RecommendationRequest, RecommendationResponse } from '@/types/api';
-import { useMutation } from '@tanstack/react-query';
-import axios from 'axios';
+import { RecommendationRequest, RecommendationResponse } from "@/types/api";
+import { useMutation } from "@tanstack/react-query";
+import axios from "axios";
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api';
+const API_BASE_URL =
+  process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000/api";
 
 async function fetchRecommendations(
-  request: RecommendationRequest
+  request: RecommendationRequest,
 ): Promise<RecommendationResponse> {
-  const response = await axios.post(`${API_BASE_URL}/recommendations`, request)
+  const response = await axios.post(`${API_BASE_URL}/recommendations`, request);
 
   if (!response) {
-    throw new Error('Failed to fetch recommendations');
+    throw new Error("Failed to fetch recommendations");
   }
 
   return response.data;

@@ -6,26 +6,28 @@ from src.api import api_router
 from src.config import settings, setup_cors_middleware
 
 app = FastAPI(
-    title="Guitar Song Recommendor API", 
+    title="Guitar Song Recommendor API",
     description="API for recommending songs to guitarists.",
     version="1.0",
     docs_url=None,
     redoc_url=None,
-    redirect_slashes=False
-    )
+    redirect_slashes=False,
+)
 
 setup_cors_middleware(app, settings)
 app.include_router(api_router())
 
+
 @app.get("/", include_in_schema=False)
 async def scalar():
-  """Scalar API Docs"""
-  return cast(
-      HTMLResponse,
-      get_scalar_api_reference(
-          openapi_url=app.openapi_url,
-      ),
-  )
+    """Scalar API Docs"""
+    return cast(
+        HTMLResponse,
+        get_scalar_api_reference(
+            openapi_url=app.openapi_url,
+        ),
+    )
+
 
 @app.get("/health")
 async def health_check():
