@@ -108,12 +108,12 @@ export default function Home() {
             </div>
           )}
 
-          <div className="grid grid-cols-7 gap-2 mb-6">
+          <div className="grid grid-cols-4 sm:grid-cols-5 md:grid-cols-7 gap-2 mb-6">
             {COMMON_CHORDS.map((chord) => (
               <button
                 key={chord}
                 onClick={() => toggleChord(chord)}
-                className={`py-3 px-4 rounded-lg font-semibold transition-all ${
+                className={`py-3 px-2 sm:px-4 rounded-lg font-semibold transition-all text-sm sm:text-base ${
                   selectedChords.includes(chord)
                     ? "bg-purple-600 text-white scale-95 shadow-lg"
                     : "bg-white/20 text-white hover:bg-white/30"
