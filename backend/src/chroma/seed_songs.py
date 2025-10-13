@@ -17,7 +17,7 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 
-def load_songs_from_json(filepath: str = "songs_data.json") -> list:
+def load_songs_from_json(filepath: str = "src/chroma/songs_data.json") -> list:
     """Load songs from JSON file"""
     try:
         with open(filepath, 'r') as f:
