@@ -2,6 +2,8 @@ import chromadb
 from chromadb.config import Settings
 from typing import List, Dict
 
+from src.chroma.redis import RedisCache
+
 
 class ChromaDBClient:
     def __init__(self, persist_directory: str = "./chroma_db"):
@@ -18,6 +20,19 @@ class ChromaDBClient:
             name="songs",
             metadata={"description": "Song chord progressions"}
         )
+
+        # initialize redis 
+        try:
+            self.cache = RedisCache()
+            self.cache_enabled = self.cache.health_check()
+            if self.cache_enabled:
+                print("Redis connected")
+            else: 
+                print("Redis unavaible, running without cache")
+        except Exception as e: 
+            print(f"Redis initialization failed: {e}, running without cache")
+            self.cache_enabled = False
+
     
     def encode_chord_progression(self, chords: List[str]) -> List[float]:
         """
@@ -87,9 +102,21 @@ class ChromaDBClient:
                 "difficulty": difficulty
             }]
         )
+
+        # invalidate cache when new songs added
+        if self.cache_enabled:
+            self.cache.invalidate_cache()
     
     def query_similar_songs(self, chords: List[str], n_results: int = 5) -> List[Dict]:
         """Query for similar songs based on chord progression"""
+        # query from cache first
+        if self.cache_enabled:
+            cached_results = self.cache.get_cached_query(chords, n_results)
+            if cached_results:
+                print("Cache hit")
+                return cached_results
+
+        # on miss, query chroma
         embedding = self.encode_chord_progression(chords)
         
         results = self.collection.query(
@@ -109,6 +136,10 @@ class ChromaDBClient:
                     "similarity_score": 1 - results['distances'][0][i]  # Convert distance to similarity
                 }
                 songs.append(song)
+        
+        if self.cache_enabled:
+            self.cache.set_cached_query(chords, n_results, songs)
+            print(f"Cached query")
         
         return songs
     
