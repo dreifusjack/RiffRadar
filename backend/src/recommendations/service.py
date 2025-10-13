@@ -1,7 +1,7 @@
 from typing import List
 
 from src.schemas import SongRecommendation, YouTubeTutorial
-from src.chroma.chroma import ChromaDBClient
+from src.chroma.chroma_client import ChromaDBClient
 from src.youtube import YouTubeService
 
 

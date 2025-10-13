@@ -7,7 +7,7 @@ import json
 import sys
 from pathlib import Path
 
-from src.chroma.chroma import ChromaDBClient
+from src.chroma.chroma_client import ChromaDBClient
 
 sys.path.insert(0, str(Path(__file__).parent))
 

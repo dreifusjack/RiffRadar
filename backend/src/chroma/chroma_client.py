@@ -2,7 +2,7 @@ import chromadb
 from chromadb.config import Settings
 from typing import List, Dict
 
-from src.chroma.redis import RedisCache
+from src.chroma.redis_cache import RedisCache
 
 
 class ChromaDBClient:
