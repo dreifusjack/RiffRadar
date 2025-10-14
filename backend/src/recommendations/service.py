@@ -34,20 +34,21 @@ class RecommendationService:
             # Get YouTube tutorial for each song
             youtube_data = self.youtube.search_tutorial(song["song_name"])
 
-            # Build recommendation object
-            recommendation = SongRecommendation(
-                song_id=song["id"],
-                song_name=song["song_name"],
-                artist=song["artist"],
-                chords=song["chords"],
-                difficulty=song["difficulty"],
-                similarity_score=round(song["similarity_score"], 3),
-                youtube_tutorial=(
-                    YouTubeTutorial(**youtube_data) if youtube_data else None
-                ),
-            )
-
-            recommendations.append(recommendation)
+            similarity_score = round(song["similarity_score"], 3)
+            if (similarity_score > .3):
+                # Build recommendation object
+                recommendation = SongRecommendation(
+                    song_id=song["id"],
+                    song_name=song["song_name"],
+                    artist=song["artist"],
+                    chords=song["chords"],
+                    difficulty=song["difficulty"],
+                    similarity_score=similarity_score,
+                    youtube_tutorial=(
+                        YouTubeTutorial(**youtube_data) if youtube_data else None
+                    ),
+                )
+                recommendations.append(recommendation)
 
         return recommendations
 
