@@ -1,0 +1,13 @@
+include:
+  - backend/docker-compose.yaml
+
+services:
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: riffradar-frontend
+    ports:
+      - "3000:3000"
+    networks:
+      - riffradar-network
