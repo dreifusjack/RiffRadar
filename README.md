@@ -20,7 +20,7 @@ RiffRadar is a guitar chord recommendation platform that helps users discover so
 
 ## Setup
 
-**1. Run with Docker (recommended)**
+### 1. Run with Docker (recommended)
 
 The simplest way to run RiffRadar is with Docker Compose.
 
@@ -38,9 +38,9 @@ Frontend: http://localhost:3000
 
 Backend API docs: http://localhost:8000
 
-**2. Manual Setup**
+### 2. Manual Setup
 
-### Frontend
+#### Frontend
 
 Navigate to the frontend directory and install dependencies:
 
@@ -49,13 +49,13 @@ cd frontend
 npm i
 ```
 
-Start development app (http://localhost:8000):
+Start development app (http://localhost:3000):
 
 ```
 npm run dev
 ```
 
-### Backend
+#### Backend
 
 Naviagte to the backend directory and set up the environment:
 
