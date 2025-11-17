@@ -14,7 +14,8 @@ RiffRadar is a guitar chord recommendation platform that helps users discover so
 
 **Backend**
 
-- Framework: FastAPI (Python)
+- Framework: FastAPI
+- Language: Python
 - Cache: Redis
 - Vector Database: ChromaDB
 
