@@ -2,7 +2,7 @@
 
 ## About
 
-RiffRadar is a guitar chord recommendation platform that helps users discover songs they can learn based on chords they already know. Users input a chord progression, and the system uses vector similarity search with ChromaDB to find songs with similar chord patterns, along with YouTube tutorial links for each recommendation. The backend is built with FastAPI and uses circle of fifths encoding for chord embeddings, while the frontend is built with Next.js, TypeScript, and TailwindCSS.
+RiffRadar is a guitar chord recommendation platform that helps users discover songs they can learn based on chords they already know. Users input a chord progression, and the system uses vector similarity search with ChromaDB to find songs with similar chord patterns, along with YouTube tutorial links for each recommendation.
 
 ## Architecture
 
