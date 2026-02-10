@@ -9,6 +9,7 @@ import { COMMON_CHORDS } from "@/types/constants";
 export default function Home() {
   const [selectedChords, setSelectedChords] = useState<string[]>([]);
   const [customChord, setCustomChord] = useState("");
+  const [showChordChart, setShowChordChart] = useState(false);
   const { mutate, data, isPending, isError, error } = useRecommendations();
   const { playGuitarRiff, playChordSound, isSoundEnabled, toggleSound } =
     useGuitarAudio();
@@ -143,6 +144,74 @@ export default function Home() {
                 {chord}
               </button>
             ))}
+          </div>
+
+          {/* Chord Chart Toggle Button */}
+          <button
+            onClick={() => setShowChordChart(!showChordChart)}
+            className="w-full mb-6 py-3 px-4 bg-white/10 hover:bg-white/20 rounded-lg text-white transition-all flex items-center justify-center gap-2 border border-white/20"
+          >
+            <svg
+              className="w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+              />
+            </svg>
+            <span className="font-medium">Chord Chart Reference</span>
+            <svg
+              className={`w-4 h-4 transition-transform ${showChordChart ? "rotate-180" : ""}`}
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M19 9l-7 7-7-7"
+              />
+            </svg>
+          </button>
+
+          {/* Collapsible Chord Chart */}
+          <div
+            className={`overflow-hidden transition-all duration-300 ease-in-out ${
+              showChordChart ? "max-h-[2000px] mb-6" : "max-h-0"
+            }`}
+          >
+            <div className="bg-white/5 rounded-lg p-4 border border-white/10">
+              <img
+                src="/guitar_chords.png"
+                alt="Guitar chord reference chart"
+                className="w-full h-auto rounded-lg"
+              />
+              <p className="text-xs text-gray-400 mt-3 text-center">
+                <a
+                  href="https://commons.wikimedia.org/wiki/File:Common_guitar_chords.png"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline hover:text-gray-300"
+                >
+                  Guitar Chord Chart
+                </a>
+                {" - "}
+                <a
+                  href="https://creativecommons.org/licenses/by-sa/3.0/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline hover:text-gray-300"
+                >
+                  CC BY-SA 3.0
+                </a>
+              </p>
+            </div>
           </div>
 
           {/* Custom Chord Input */}
