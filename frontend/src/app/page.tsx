@@ -1,119 +1,16 @@
 "use client";
 
 import { useRecommendations } from "@/hooks/useRecommendations";
+import { useGuitarAudio } from "@/hooks/useGuitarAudio";
 import { useState } from "react";
-import { SongRecommendation } from "@/types/api";
-
-const COMMON_CHORDS = [
-  "C",
-  "D",
-  "E",
-  "F",
-  "G",
-  "A",
-  "B",
-  "Cm",
-  "Dm",
-  "Em",
-  "Fm",
-  "Gm",
-  "Am",
-  "Bm",
-  "C7",
-  "D7",
-  "E7",
-  "F7",
-  "G7",
-  "A7",
-  "B7",
-];
+import SongRecommendations from "@/components/SongRecommendations";
+import { COMMON_CHORDS } from "@/types/constants";
 
 export default function Home() {
   const [selectedChords, setSelectedChords] = useState<string[]>([]);
   const [customChord, setCustomChord] = useState("");
   const { mutate, data, isPending, isError, error } = useRecommendations();
-
-  const playChordSound = (chord: string) => {
-    const audioContext = new (window.AudioContext || window.AudioContext)();
-
-    // Map chord to frequency
-    const noteFrequencies: { [key: string]: number } = {
-      C: 130.81,
-      D: 146.83,
-      E: 164.81,
-      F: 174.61,
-      G: 196.0,
-      A: 220.0,
-      B: 246.94,
-    };
-
-    const rootNote = chord.charAt(0);
-    const baseFreq = noteFrequencies[rootNote] || 220;
-
-    // Determine chord type and create harmonics
-    const isMinor = chord.includes("m") && !chord.includes("7");
-    const isSeventh = chord.includes("7");
-
-    // Define chord intervals
-    let intervals = [1, 1.25, 1.5]; // Major triad
-    if (isMinor) {
-      intervals = [1, 1.189, 1.5]; // Minor triad
-    }
-    if (isSeventh) {
-      intervals.push(1.78); // Add dominant 7th
-    }
-
-    intervals.forEach((interval) => {
-      const freq = baseFreq * interval;
-      const stringLength = audioContext.sampleRate / freq;
-
-      const bufferSize = audioContext.sampleRate * 2;
-      const buffer = audioContext.createBuffer(
-        1,
-        bufferSize,
-        audioContext.sampleRate,
-      );
-      const data = buffer.getChannelData(0);
-
-      for (let i = 0; i < stringLength * 2; i++) {
-        data[i] = Math.random() * 2 - 1;
-      }
-
-      for (let i = Math.floor(stringLength * 2); i < bufferSize; i++) {
-        data[i] =
-          (data[i - Math.floor(stringLength)] +
-            data[i - Math.floor(stringLength) - 1]) *
-          0.5 *
-          0.996;
-      }
-
-      const source = audioContext.createBufferSource();
-      const gainNode = audioContext.createGain();
-      const filter = audioContext.createBiquadFilter();
-
-      source.buffer = buffer;
-      source.connect(filter);
-      filter.connect(gainNode);
-      gainNode.connect(audioContext.destination);
-      filter.type = "lowpass";
-      filter.frequency.setValueAtTime(3500, audioContext.currentTime);
-      filter.frequency.exponentialRampToValueAtTime(
-        800,
-        audioContext.currentTime + 1.5,
-      );
-      filter.Q.setValueAtTime(2, audioContext.currentTime);
-
-      const volume = 0.25 / intervals.length;
-      gainNode.gain.setValueAtTime(volume, audioContext.currentTime);
-      gainNode.gain.exponentialRampToValueAtTime(
-        0.001,
-        audioContext.currentTime + 1.8,
-      );
-
-      source.start(audioContext.currentTime);
-      source.stop(audioContext.currentTime + 1.8);
-    });
-  };
+  const { playGuitarRiff, playChordSound } = useGuitarAudio();
 
   const toggleChord = (chord: string) => {
     playChordSound(chord);
@@ -145,20 +42,30 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
       <div className="container mx-auto px-4 py-12 max-w-6xl">
+        {/* Header */}
         <div className="text-center mb-12">
           <h1 className="text-6xl font-bold text-white mb-4 tracking-tight">
-            🎸 RiffRadar
+            <button
+              onClick={playGuitarRiff}
+              className="hover:scale-110 transition-transform duration-200 cursor-pointer inline-block"
+              aria-label="Play guitar riff"
+            >
+              🎸
+            </button>{" "}
+            RiffRadar
           </h1>
           <p className="text-xl text-gray-300">
             Enter the chords you know, discover songs you can learn
           </p>
         </div>
 
+        {/* Chord Selection */}
         <div className="bg-white/10 backdrop-blur-md rounded-2xl p-8 mb-8 shadow-2xl border border-white/20">
           <h2 className="text-2xl font-semibold text-white mb-4">
             Select Your Chords
           </h2>
 
+          {/* Selected Chords Display */}
           {selectedChords.length > 0 && (
             <div className="mb-6 p-4 bg-purple-500/20 rounded-lg border border-purple-500/30">
               <div className="flex items-center justify-between mb-2">
@@ -191,6 +98,7 @@ export default function Home() {
             </div>
           )}
 
+          {/* Chord Grid */}
           <div className="grid grid-cols-4 sm:grid-cols-5 md:grid-cols-7 gap-2 mb-6">
             {COMMON_CHORDS.map((chord) => (
               <button
@@ -207,6 +115,7 @@ export default function Home() {
             ))}
           </div>
 
+          {/* Custom Chord Input */}
           <div className="flex gap-2 mb-6">
             <input
               type="text"
@@ -224,6 +133,7 @@ export default function Home() {
             </button>
           </div>
 
+          {/* Search Button */}
           <button
             onClick={handleSearch}
             disabled={selectedChords.length === 0 || isPending}
@@ -259,6 +169,7 @@ export default function Home() {
           </button>
         </div>
 
+        {/* Error State */}
         {isError && (
           <div className="bg-red-500/20 border border-red-500/50 rounded-xl p-4 mb-8 text-red-200">
             <p className="font-semibold">Error loading recommendations</p>
@@ -266,87 +177,8 @@ export default function Home() {
           </div>
         )}
 
-        {data && data.recommendations.length > 0 && (
-          <div className="space-y-4">
-            <h2 className="text-3xl font-bold text-white mb-6">
-              Recommended Songs for You
-            </h2>
-            {data.recommendations.map((song: SongRecommendation) => (
-              <div
-                key={song.songId}
-                className="bg-white/10 backdrop-blur-md rounded-xl p-6 shadow-xl border border-white/20 hover:bg-white/15 transition-all"
-              >
-                <div className="flex items-start justify-between gap-4">
-                  <div className="flex-1">
-                    <h3 className="text-2xl font-bold text-white mb-1">
-                      {song.songName}
-                    </h3>
-                    <p className="text-lg text-gray-300 mb-3">{song.artist}</p>
-
-                    <div className="flex flex-wrap gap-2 mb-3">
-                      {song.chords.map((chord, idx) => (
-                        <span
-                          key={idx}
-                          className="px-3 py-1 bg-blue-500/30 text-blue-200 rounded-full text-sm font-medium border border-blue-500/50"
-                        >
-                          {chord}
-                        </span>
-                      ))}
-                    </div>
-
-                    <div className="flex gap-4 text-sm text-gray-400">
-                      <span className="flex items-center gap-1">
-                        <span className="text-yellow-400">⭐</span>
-                        Difficulty: {song.difficulty}
-                      </span>
-                      <span className="flex items-center gap-1">
-                        <span className="text-green-400">✓</span>
-                        Match: {(song.similarityScore * 100).toFixed(0)}%
-                      </span>
-                    </div>
-                  </div>
-
-                  {song.youtubeTutorial && (
-                    <div className="flex-shrink-0">
-                      <a
-                        href={song.youtubeTutorial?.videoUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="block"
-                      >
-                        <img
-                          src={song.youtubeTutorial.thumbnailUrl}
-                          alt={song.youtubeTutorial.thumbnailUrl}
-                          className="w-40 h-24 object-cover rounded-lg border-2 border-white/20 hover:border-red-500 transition-all"
-                        />
-                        <div className="mt-2 text-center">
-                          <span className="inline-flex items-center gap-1 text-sm font-medium text-red-400 hover:text-red-300">
-                            <svg
-                              className="w-5 h-5"
-                              fill="currentColor"
-                              viewBox="0 0 24 24"
-                            >
-                              <path d="M10 16.5l6-4.5-6-4.5v9zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z" />
-                            </svg>
-                            Watch Tutorial
-                          </span>
-                        </div>
-                      </a>
-                    </div>
-                  )}
-                </div>
-              </div>
-            ))}
-          </div>
-        )}
-
-        {data && data.recommendations.length === 0 && (
-          <div className="bg-white/10 backdrop-blur-md rounded-xl p-12 text-center border border-white/20">
-            <p className="text-xl text-gray-300">
-              No songs found for your chord selection. Try different chords!
-            </p>
-          </div>
-        )}
+        {/* Results */}
+        {data && <SongRecommendations recommendations={data.recommendations} />}
       </div>
     </div>
   );

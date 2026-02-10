@@ -43,3 +43,28 @@ export const GUITAR_RIFFS: Riff[] = [
     ],
   },
 ];
+
+
+export const COMMON_CHORDS = [
+  "C",
+  "D",
+  "E",
+  "F",
+  "G",
+  "A",
+  "B",
+  "Cm",
+  "Dm",
+  "Em",
+  "Fm",
+  "Gm",
+  "Am",
+  "Bm",
+  "C7",
+  "D7",
+  "E7",
+  "F7",
+  "G7",
+  "A7",
+  "B7",
+];
