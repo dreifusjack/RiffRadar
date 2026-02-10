@@ -1,8 +1,64 @@
-import { GUITAR_RIFFS } from '@/types/constants';
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
+
+interface Note {
+  freq: number;
+  duration: number;
+}
+
+interface Riff {
+  notes: Note[];
+}
 
 export const useGuitarAudio = () => {
- 
+  const [isSoundEnabled, setIsSoundEnabled] = useState(true);
+
+  const toggleSound = useCallback(() => {
+    setIsSoundEnabled(prev => !prev);
+  }, []);
+
+  const GUITAR_RIFFS: Riff[] = [
+    // Money for Nothing - Dire Straits (opening riff)
+    {
+      notes: [
+        { freq: 196.0, duration: 0.15 }, // G
+        { freq: 196.0, duration: 0.15 }, // G
+        { freq: 233.08, duration: 0.3 }, // Bb
+        { freq: 196.0, duration: 0.15 }, // G
+        { freq: 196.0, duration: 0.15 }, // G
+        { freq: 233.08, duration: 0.3 }, // Bb
+        { freq: 196.0, duration: 0.15 }, // G
+        { freq: 174.61, duration: 0.3 }, // F
+        { freq: 196.0, duration: 0.4 }, // G
+      ],
+    },
+    // Stairway to Heaven - Led Zeppelin (intro arpeggio)
+    {
+      notes: [
+        { freq: 220.0, duration: 0.35 }, // A
+        { freq: 246.94, duration: 0.35 }, // B
+        { freq: 261.63, duration: 0.7 }, // C (hold)
+        { freq: 246.94, duration: 0.35 }, // B
+        { freq: 220.0, duration: 0.35 }, // A
+        { freq: 246.94, duration: 0.35 }, // B
+        { freq: 293.66, duration: 0.35 }, // D
+        { freq: 261.63, duration: 0.35 }, // C
+        { freq: 220.0, duration: 0.7 }, // A (hold)
+      ],
+    },
+    // Come As You Are - Nirvana (main riff)
+    {
+      notes: [
+        { freq: 164.81, duration: 0.4 }, // E
+        { freq: 164.81, duration: 0.15 }, // E
+        { freq: 146.83, duration: 0.4 }, // D
+        { freq: 164.81, duration: 0.8 }, // E (hold)
+        { freq: 164.81, duration: 0.4 }, // E
+        { freq: 164.81, duration: 0.15 }, // E
+        { freq: 130.81, duration: 0.4 }, // C
+        { freq: 123.47, duration: 0.8 }, // B (hold)
+      ],
+    },
+  ];
 
   const synthesizeString = useCallback(
     (
@@ -55,6 +111,8 @@ export const useGuitarAudio = () => {
   );
 
   const playGuitarRiff = useCallback(() => {
+    if (!isSoundEnabled) return;
+    
     const riff = GUITAR_RIFFS[Math.floor(Math.random() * GUITAR_RIFFS.length)];
     const audioContext = new (window.AudioContext ||
       (window).AudioContext)();
@@ -65,9 +123,11 @@ export const useGuitarAudio = () => {
       synthesizeString(audioContext, note.freq, note.duration, currentTime);
       currentTime += note.duration;
     });
-  }, [synthesizeString]);
+  }, [synthesizeString, isSoundEnabled]);
 
   const playChordSound = useCallback((chord: string) => {
+    if (!isSoundEnabled) return;
+    
     const audioContext = new (window.AudioContext ||
       (window).AudioContext)();
 
@@ -146,10 +206,12 @@ export const useGuitarAudio = () => {
       source.start(audioContext.currentTime);
       source.stop(audioContext.currentTime + 1.8);
     });
-  }, []);
+  }, [isSoundEnabled]);
 
   return {
     playGuitarRiff,
     playChordSound,
+    isSoundEnabled,
+    toggleSound,
   };
 };
