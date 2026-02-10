@@ -33,7 +33,90 @@ export default function Home() {
   const [customChord, setCustomChord] = useState("");
   const { mutate, data, isPending, isError, error } = useRecommendations();
 
+  const playChordSound = (chord: string) => {
+    const audioContext = new (window.AudioContext || window.AudioContext)();
+
+    // Map chord to frequency
+    const noteFrequencies: { [key: string]: number } = {
+      C: 130.81,
+      D: 146.83,
+      E: 164.81,
+      F: 174.61,
+      G: 196.0,
+      A: 220.0,
+      B: 246.94,
+    };
+
+    const rootNote = chord.charAt(0);
+    const baseFreq = noteFrequencies[rootNote] || 220;
+
+    // Determine chord type and create harmonics
+    const isMinor = chord.includes("m") && !chord.includes("7");
+    const isSeventh = chord.includes("7");
+
+    // Define chord intervals
+    let intervals = [1, 1.25, 1.5]; // Major triad
+    if (isMinor) {
+      intervals = [1, 1.189, 1.5]; // Minor triad
+    }
+    if (isSeventh) {
+      intervals.push(1.78); // Add dominant 7th
+    }
+
+    intervals.forEach((interval) => {
+      const freq = baseFreq * interval;
+      const stringLength = audioContext.sampleRate / freq;
+
+      const bufferSize = audioContext.sampleRate * 2;
+      const buffer = audioContext.createBuffer(
+        1,
+        bufferSize,
+        audioContext.sampleRate,
+      );
+      const data = buffer.getChannelData(0);
+
+      for (let i = 0; i < stringLength * 2; i++) {
+        data[i] = Math.random() * 2 - 1;
+      }
+
+      for (let i = Math.floor(stringLength * 2); i < bufferSize; i++) {
+        data[i] =
+          (data[i - Math.floor(stringLength)] +
+            data[i - Math.floor(stringLength) - 1]) *
+          0.5 *
+          0.996;
+      }
+
+      const source = audioContext.createBufferSource();
+      const gainNode = audioContext.createGain();
+      const filter = audioContext.createBiquadFilter();
+
+      source.buffer = buffer;
+      source.connect(filter);
+      filter.connect(gainNode);
+      gainNode.connect(audioContext.destination);
+      filter.type = "lowpass";
+      filter.frequency.setValueAtTime(3500, audioContext.currentTime);
+      filter.frequency.exponentialRampToValueAtTime(
+        800,
+        audioContext.currentTime + 1.5,
+      );
+      filter.Q.setValueAtTime(2, audioContext.currentTime);
+
+      const volume = 0.25 / intervals.length;
+      gainNode.gain.setValueAtTime(volume, audioContext.currentTime);
+      gainNode.gain.exponentialRampToValueAtTime(
+        0.001,
+        audioContext.currentTime + 1.8,
+      );
+
+      source.start(audioContext.currentTime);
+      source.stop(audioContext.currentTime + 1.8);
+    });
+  };
+
   const toggleChord = (chord: string) => {
+    playChordSound(chord);
     if (selectedChords.includes(chord)) {
       setSelectedChords(selectedChords.filter((c) => c !== chord));
     } else {
