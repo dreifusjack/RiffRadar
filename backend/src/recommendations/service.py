@@ -13,7 +13,7 @@ class RecommendationService:
         self.youtube = YouTubeService()
 
     def generate_recommendations(
-        self, chords: List[str], max_results: int = 5
+        self, chords: List[str], max_results: int = 50
     ) -> List[SongRecommendation]:
         """
         Get song recommendations based on chord progression
