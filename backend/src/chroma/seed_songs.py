@@ -34,7 +34,7 @@ def load_songs_from_json(filepath: str = "src/chroma/songs_data.json") -> list:
         return []
 
 
-def seed_database(reset: bool = True):
+def seed_database(reset: bool = False):
     """Seed the ChromaDB database with songs"""
 
     # Initialize ChromaDB client
