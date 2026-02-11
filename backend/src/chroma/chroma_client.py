@@ -103,6 +103,7 @@ class ChromaDBClient:
         song_name: str,
         artist: str,
         chords: List[str],
+        genres: List[str],
         difficulty: str = "beginner",
     ):
         """Add a song to the collection"""
@@ -116,6 +117,7 @@ class ChromaDBClient:
                     "song_name": song_name,
                     "artist": artist,
                     "chords": ",".join(chords),
+                    "genres": ",".join(genres),
                     "difficulty": difficulty,
                 }
             ],
@@ -144,14 +146,21 @@ class ChromaDBClient:
         songs = []
         if results["ids"] and results["ids"][0]:
             for i in range(len(results["ids"][0])):
+                metadata = results["metadatas"][0][i]
+                
+                # Handle genres field - may not exist in old data
+                genres = metadata.get("genres", "")
+                if isinstance(genres, str):
+                    genres = [g.strip() for g in genres.split(",")] if genres else []
+                
                 song = {
                     "id": results["ids"][0][i],
-                    "song_name": results["metadatas"][0][i]["song_name"],
-                    "artist": results["metadatas"][0][i]["artist"],
-                    "chords": results["metadatas"][0][i]["chords"].split(","),
-                    "difficulty": results["metadatas"][0][i]["difficulty"],
-                    "similarity_score": 1
-                    - results["distances"][0][i],  # Convert distance to similarity
+                    "song_name": metadata["song_name"],
+                    "artist": metadata["artist"],
+                    "chords": metadata["chords"].split(","),
+                    "difficulty": metadata["difficulty"],
+                    "genres": genres,
+                    "similarity_score": 1 - results["distances"][0][i],
                 }
                 songs.append(song)
 

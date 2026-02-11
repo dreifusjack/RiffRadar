@@ -1,8 +1,9 @@
-from fastapi import APIRouter, HTTPException, logger
-
+from fastapi import APIRouter, HTTPException
+import logging
 from src.recommendations.service import RecommendationService
 from src.schemas import RecommendationResponse, ChordSequence
 
+logger = logging.getLogger(__name__)
 
 def song_recommendations_router() -> APIRouter:
     router = APIRouter(prefix="/recommendations", tags=["Song Recommendation"])

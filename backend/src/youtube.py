@@ -1,7 +1,8 @@
-from fastapi import logger
 import requests
+import logging
 from src.config import settings
 
+logger = logging.getLogger(__name__)
 
 class YouTubeService:
     """Service for calling Youtube API"""

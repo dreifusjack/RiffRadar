@@ -68,6 +68,7 @@ def seed_database(reset: bool = False):
                 song_name=song["song_name"],
                 artist=song["artist"],
                 chords=song["chords"],
+                genres=song["genres"],
                 difficulty=song["difficulty"],
             )
             successful += 1

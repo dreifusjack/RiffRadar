@@ -25,6 +25,7 @@ class SongRecommendation(BaseAPIModel):
     chords: List[str]
     difficulty: str
     similarity_score: float
+    genres: List[str]
     youtube_tutorial: YouTubeTutorial | None = None
 
 

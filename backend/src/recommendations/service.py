@@ -36,6 +36,10 @@ class RecommendationService:
 
             similarity_score = round(song["similarity_score"], 3)
             if (similarity_score > .3):
+                genres = song["genres"]
+                if isinstance(genres, str):
+                    genres = [g.strip() for g in genres.split(",")]
+
                 # Build recommendation object
                 recommendation = SongRecommendation(
                     song_id=song["id"],
@@ -43,6 +47,7 @@ class RecommendationService:
                     artist=song["artist"],
                     chords=song["chords"],
                     difficulty=song["difficulty"],
+                    genres=genres,
                     similarity_score=similarity_score,
                     youtube_tutorial=(
                         YouTubeTutorial(**youtube_data) if youtube_data else None
