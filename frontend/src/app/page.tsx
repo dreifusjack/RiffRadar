@@ -45,6 +45,7 @@ export default function Home() {
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
       <div className="container mx-auto px-4 py-12 max-w-6xl">
         {/* Header */}
+        {/* Header */}
         <div className="text-center mb-12">
           <div className="relative mb-4">
             <h1 className="text-6xl font-bold text-white tracking-tight">
@@ -59,7 +60,7 @@ export default function Home() {
             </h1>
             <button
               onClick={toggleSound}
-              className="absolute right-0 top-1/2 -translate-y-1/2 flex items-center gap-2 px-4 py-2 bg-white/10 hover:bg-white/20 rounded-lg text-white transition-colors border border-white/20"
+              className="hidden md:flex absolute right-0 top-1/2 -translate-y-1/2 items-center gap-2 px-4 py-2 bg-white/10 hover:bg-white/20 rounded-lg text-white transition-colors border border-white/20"
               aria-label={isSoundEnabled ? "Mute sounds" : "Unmute sounds"}
             >
               {isSoundEnabled ? (
